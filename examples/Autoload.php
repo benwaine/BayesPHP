@@ -1,7 +1,8 @@
 <?php
-require_once '../Autoloader.php';
+require_once '../BayesPHP/Autoloader.php';
 
-\BayesPHP\Autoloader::registerAutoload();
+$autoloader = new BayesPHP\Autoloader('BayesPHP', __DIR__ . '/..');
+$autoloader->register();
 
 new \BayesPHP\WordCounter();
 

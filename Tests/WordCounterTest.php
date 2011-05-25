@@ -2,7 +2,7 @@
 
 namespace BayesPHP;
 
-require_once dirname(__FILE__) . '/../WordCounter.php';
+require_once dirname(__FILE__) . '/../BayesPHP/WordCounter.php';
 
 /**
  * Test class for WordCounter.
@@ -84,9 +84,21 @@ class WordCounterTest extends \PHPUnit_Framework_TestCase
                         'is' => 2,
                         'a' => 2,
                         'simple' => 2,
-                        'test' => 3);
+                        'test' => 2);
 
         $this->assertEquals($resultArray, $counts);
+    }
+
+    public function testReset()
+    {
+        $string = 'this this is a simple test';
+
+        $this->object->addToSample($string);
+        $this->object->addToSample($string);
+
+        $this->object->reset();
+
+        $this->assertEquals(array(), $this->object->getWordCounts());
     }
 
 }
