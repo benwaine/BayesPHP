@@ -1,8 +1,7 @@
 <?php
 
 namespace BayesPHP;
-
-require_once dirname(__FILE__) . '/../BayesPHP/Classifier.php';
+use \Mockery as m;
 
 /**
  * Test class for Classifier.
@@ -36,6 +35,46 @@ class ClassifierTest extends \PHPUnit_Framework_TestCase
 
     public function testConstruct()
     {
+        
+    }
+
+    public function classifyProvider()
+    {
+        return array(
+            array(
+                'he is a good fox',
+                array(
+                    array('p' => 0.8, 'n' => 0.2),
+                    array('p' => 0.4, 'n' => 0.4),
+                    array('p' => 0.5, 'n' => 0.25),
+                    array('p' => 0.9, 'n' => 0.3),
+                    array('p' => 0.5, 'n' => 0.5),
+                ),
+                array('p' => 0.96, 'n' => 0.02)
+            )
+        );
+    }
+
+    /**
+     *@dataProvider classifyProvider
+     */
+    public function testClassify($string, $probs, $expect)
+    {
+        $resultOb = m::Mock('\BayesPHP\Sample\Result');
+        $resultOb->shouldReceive('getWordProbability')
+            ->times(5)
+            ->andReturn($probs[0], $probs[1], $probs[2], $probs[3], $probs[4]);
+
+        $stemer = m::Mock('\BayesPHP\Stemer');
+        $stemer->shouldReceive('process')
+            ->once()
+            ->andReturn($string);
+
+        $classifier = new Classifier($resultOb, $stemer);
+
+        $classifierResult = $classifier->classify($string);
+
+        $this->assertEquals($classifierResult->getProbabilities(), $expect);
         
     }
 
