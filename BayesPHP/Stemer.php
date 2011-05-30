@@ -7,6 +7,8 @@ class Stemer
 
     private $punctuation;
 
+    private $wordBlacklist;
+
     public function __construct($lowerCasing = null, $punctuation = null)
     {
         if(isset($lowerCasing))
@@ -30,10 +32,15 @@ class Stemer
     {
         $this->punctuation = $punctuation;
     }
+
+    public function setWordBlacklist(array $words)
+    {
+        $this->wordBlacklist = $words;
+    }
     
     public function process($string)
     {
-        $string = $this->trim($string);
+        $string = $this->tokenActions($string);
 
         if($this->lowerCasing)
         {
@@ -48,7 +55,7 @@ class Stemer
         return $string;
     }
 
-    private function trim($string)
+    private function tokenActions($string)
     {
         $string = trim($string);
 
@@ -63,10 +70,23 @@ class Stemer
             else
             {
                 trim($value);
+
+                if(isset($this->wordBlacklist))
+                {
+                    if($this->checkBlacklist($value))
+                    {
+                        unset($pieces[$key]);
+                    }
+                }
             }
         }
 
         return implode(' ', $pieces);
+    }
+
+    private function checkBlacklist($word)
+    {
+        return (in_array($word, $this->wordBlacklist));
     }
 
     private function lowerCase($string)
