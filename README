@@ -1,0 +1,12 @@
+BayesPHP is a small library designed to make the classification of text using
+Bayes Algorithm easy and simple.
+
+REQUIREMENTS
+
+PHP 5.3
+Mockery https://github.com/padraic/mockery required to run unit tests
+
+EXAMPLES
+
+Examples are provided in examples/example.php.
+

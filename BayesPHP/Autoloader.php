@@ -1,6 +1,6 @@
 <?php
 
-/* Autoloader Taken from the Doctrine project. Original Licence Beloe */
+/* Autoloader Taken from the Doctrine project. Original Licence Below */
 
 /*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

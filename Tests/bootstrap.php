@@ -11,6 +11,4 @@ require_once 'Mockery/Loader.php';
 $loader = new \Mockery\Loader;
 $loader->register();
 
-
-
 ?>
