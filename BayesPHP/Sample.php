@@ -61,9 +61,8 @@ class Sample
      * @param Stemer      $stemer  A stemer used to stem the words in each of the text samples.
      * @param WordCounter $counter A word counter used to count words in text samples.
      */
-    public function __construct($sample, Stemer $stemer, WordCounter $counter)
+    public function __construct(Stemer $stemer, WordCounter $counter)
     {
-        $this->setSample($sample);
         $this->stemer = $stemer;
         $this->counter = $counter;
     }

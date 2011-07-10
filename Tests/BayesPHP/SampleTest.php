@@ -21,11 +21,10 @@ class SampleTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $sample = array('p' =>array(), 'n' => array());
         $stemer = m::mock('\BayesPHP\Stemer');
         $counter = m::mock('\BayesPHP\WordCounter');
 
-        $this->object = new Sample($sample, $stemer, $counter);
+        $this->object = new Sample($stemer, $counter);
     }
 
     /**
@@ -89,8 +88,8 @@ class SampleTest extends \PHPUnit_Framework_TestCase
         $stemer = m::mock('\BayesPHP\Stemer');
         $stemer->shouldReceive('process')->times(8);
 
-        $sampler = new Sample($sample, $stemer, $wordCounter);
-
+        $sampler = new Sample($stemer, $wordCounter);
+        $sampler->setSample($sample);
         $result = $sampler->process();
 
         $this->assertType('\BayesPHP\Sample\Result', $result);

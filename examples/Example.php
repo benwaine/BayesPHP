@@ -73,8 +73,8 @@ $stemer = new BayesPHP\Stemer(true, array(',', '!', '.', ));
 // Suggestion: use a common word list and always remove the subject word.
 $stemer->setWordBlacklist(array('fox', 'i', 'a', 'if'));
 
-$sample = new BayesPHP\Sample($textSample, $stemer, $wordCounter);
-
+$sample = new BayesPHP\Sample($stemer, $wordCounter);
+$sample->setSample($textSample);
 
 // Process the sample and produce a result object.
 $result = $sample->process();
